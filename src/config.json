@@ -7,7 +7,7 @@
           "order": "asc"
         },
         { "name": "number", 
-          "order": "desc"
+          "order": "asc"
         }
     ],
     "books": [
