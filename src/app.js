@@ -1,13 +1,17 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = express.Router();
+const getReturn = require("./libraryManager")
 
-router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/libraryManager.html'));
+app.set('views', path.join(__dirname, 'views'));    
+app.set('view engine', 'ejs');
+
+app.get('/',function(req,res){
+    const result = getReturn("./config.json")
+    res.render('index', result)
 });
 
-app.use('/', router);
+
 app.listen(process.env.port || 3000);
 
 console.log('Running at localhost port 3000');

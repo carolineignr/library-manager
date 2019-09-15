@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-async function readJSON() {
-    return  await require('./config.json')
+function readJSON(path) {
+    return require(path)
 }
 
 function evaluateElements(a, b, prop, order) {
@@ -37,7 +37,6 @@ function ordenateCollection(options) {
         return result;
     });
 
-    console.log(options.books);
     return options.books;
 }
 
@@ -53,20 +52,21 @@ function validateOptions(option) {
     });
 }
 
-
-(async () => {
+function getBooks(path) {
     try {
-        const content = await readJSON();
-        const validate = validateOptions(content);
-        if (validate) {
-            const collection = ordenateCollection(content);
-        } else {
-            console.log("Valor de ordenação vazio");
-            process.exit();
-        }
-    } catch (err) {
-        console.error(err);
-        process.exit(0);
-    }
-})()
 
+        const options = readJSON(path)    
+        if (validateOptions(options)) {
+            return { data: ordenateCollection(options) } 
+        } 
+
+        return { error: "Valor de ordenação vazio"  }        
+    
+    } catch (err) {
+        return { error: err  }
+        // console.error(err);
+        // process.exit(0);
+    }
+}
+
+module.exports = getBooks
