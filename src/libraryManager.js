@@ -1,21 +1,8 @@
-function readJSON() {
-    const fs = require('fs');
+const fs = require('fs');
 
-    fs.readFile('./config.json', 'utf8', (err, jsonString) => {
-        if (err) {
-            console.log("Error reading file from disk:", err)
-            return
-        }
-        try {
-            const options = JSON.parse(jsonString);
-            ordenateCollection(options)
-        }
-        catch (err) {
-            console.log('Error parsing JSON string:', err)
-        }
-    })
+async function readJSON() {
+    return  await require('./config.json')
 }
-
 
 function evaluateElements(a, b, prop, order) {
 
@@ -31,7 +18,7 @@ function evaluateElements(a, b, prop, order) {
     return 0;
 }
 
-function ordenateCollection(options) {
+function ordenateCollection(options) {     
 
     options.books.sort((a, b) => {
         let counter = 0;
@@ -39,18 +26,47 @@ function ordenateCollection(options) {
 
         while (result == 0 && counter < options.props.length) {
 
-            const prop = [options.props[counter].name];
-            const order = [options.props[counter].order];
+            const prop = options.props[counter].name;
+            const order = options.props[counter].order;
 
             result = evaluateElements(a, b, prop, order);
 
             counter++;
-        }
+        };
 
         return result;
     });
 
-    console.log(options.books)
+    console.log(options.books);
+    return options.books;
 }
 
-readJSON();
+function validateOptions(option) {
+    return option.props.every(prop => {
+        if (prop.order == "") {
+            return false;
+        } 
+        if (!prop.order) {
+            throw new Error("Valor de ordenação: null");
+        }
+        return true;
+    });
+}
+
+
+(async () => {
+    try {
+        const content = await readJSON();
+        const validate = validateOptions(content);
+        if (validate) {
+            const collection = ordenateCollection(content);
+        } else {
+            console.log("Valor de ordenação vazio");
+            process.exit();
+        }
+    } catch (err) {
+        console.error(err);
+        process.exit(0);
+    }
+})()
+

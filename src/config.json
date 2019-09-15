@@ -1,7 +1,7 @@
 {
     "props": [
-        { "name": "editionYear", 
-          "order": "asc"
+        { "name": "editionYear",
+          "order": ""
         },
         { "name": "author", 
           "order": "asc"
