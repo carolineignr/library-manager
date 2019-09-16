@@ -1,6 +1,12 @@
 {
-  "props": [{"name":"title", "order":"asc"}],
+  "props": [{"name": "title", "order":"asc"}],
   "books": [
+    {
+        "number": 1,
+        "title": "Java How To Program",
+        "author": "Deitel & Deitel",
+        "editionYear": 2007
+    },
     {
       "number": 2,
       "title": "Patterns of Enterprise Application Architecture",
@@ -12,12 +18,6 @@
       "title": "Head First Design Patterns",
       "author": "Elisabeth Freeman",
       "editionYear": 2004
-    },
-    {
-      "number": 1,
-      "title": "Java How To Program",
-      "author": "Deitel & Deitel",
-      "editionYear": 2007
     },
     {
       "number": 4,

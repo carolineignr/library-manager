@@ -51,10 +51,10 @@ function validateOptions(option) {
   }
 
   return option.props.every(prop => {
-    if (prop.order == "") {
+    if (prop.order == ""|| prop.name == "") {
       return false;
     }
-    if (!prop.order) {
+    if (!prop.order || !prop.name) {
       throw new Error("Valor de ordenação: null");
     }
     return true;
