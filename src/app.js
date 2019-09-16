@@ -5,7 +5,6 @@ const getData = require("./libraryManager");
 
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "views")));
-//app.engine("html", require("ejs").renderFile);
 app.set("view engine", "ejs");
 
 app.get("/", function(req, res) {
